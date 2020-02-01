@@ -2,24 +2,50 @@
     felt very bored and decided to make this game instead of studying
 */
 
-import fisica.*;
+final int PLAY = 1;
+int mode = PLAY;
 
-PImage dino;
 PImage bird;
 
+boolean downkey = false;
+
+Ground g;
+Dino d;
+
 void setup(){
-  //size(width, height/4);
-  fullScreen();
+  size(2000, 700);
+  //fullScreen();
   background(255);
+  frameRate(15);
   
-  //instatiation of images
-  //dino = loadImage("tile000.png");
-  //bird = loadImage("ezgif.com-crop (3).png");
+  
+  g = new Ground();
+  d = new Dino();
+  
 }
 
 void draw(){
-  //image(dino, 30, 30);
-  //image(bird, 50, 50);
-  //print("hi");
+  background(255);
   
+  // modes
+  if(mode == PLAY) {
+    int speed = 10;
+    g.show();
+    //g.moveGround(speed);
+    
+    if(downkey){
+      d.duck();
+    } else{
+      d.run();
+    }
+  }
+  
+}
+
+void keyPressed(){
+  if(keyCode == DOWN) downkey = true;
+}
+
+void keyReleased(){
+  if(keyCode == DOWN) downkey = false;
 }
