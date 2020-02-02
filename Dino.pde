@@ -3,9 +3,10 @@ class Dino{
   PImage dino;
   PImage[] dinoRun, dinoDuck, dinoJump;
   int dr, dd;
+  float dy, y;
   
   Dino(){
-    dino = loadImage("sprites/dino1.png");
+    dino = loadImage("sprites/dino2.png");
     
     // dinoRun
     dinoRun = new PImage[3];
@@ -21,26 +22,38 @@ class Dino{
     }
     dd = 0;    
     
+    
+    // variables
+    dy = 5;
+    y = height/2 + 50;
   }
   
   void show(){
-    image(dino, 100, height/2 + 50);
+    image(dino, 100, y);
   }
   
   void run(){
-    image(dinoRun[dr], 100, height/2 + 50);
+    image(dinoRun[dr], 100, y);
     dr++;
     if(dr >= 3) dr = 0;
   }
   
   void duck(){
-    image(dinoDuck[dd], 100, height/2 + 85);
+    image(dinoDuck[dd], 100, y+35);
     dd++;
     if(dd >= 2) dd = 0;
   }
   
   void jump(){
-    
+    if(y > height/2 + 50){ // base case
+      dy = 5;
+      y = height/2 + 50;
+      upkey = false;
+    } else{ // dino jumping with respect to gravity
+      y -= dy;
+      dy -= 0.2;
+      
+    }
   }
   
 }

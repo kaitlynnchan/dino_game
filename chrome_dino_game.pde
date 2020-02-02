@@ -5,20 +5,18 @@
 final int PLAY = 1;
 int mode = PLAY;
 
-PImage bird;
-
-boolean downkey = false;
+boolean downkey = false, upkey = false;
 
 Ground g;
 Dino d;
 
 void setup(){
-  size(2000, 700);
+  size(1000, 700);
   //fullScreen();
   background(255);
-  frameRate(15);
+  //frameRate(15);
   
-  
+  // instantiating objects
   g = new Ground();
   d = new Dino();
   
@@ -33,19 +31,24 @@ void draw(){
     g.show();
     //g.moveGround(speed);
     
+    // moving dino
+    if(upkey) d.jump();
     if(downkey){
       d.duck();
     } else{
-      d.run();
+      //d.run();
+      d.show();
     }
   }
   
 }
 
 void keyPressed(){
+  if(key == ' ' || keyCode == UP) upkey = true; 
   if(keyCode == DOWN) downkey = true;
 }
 
 void keyReleased(){
+  //if(key == ' ' || keyCode == UP) upkey = false; 
   if(keyCode == DOWN) downkey = false;
 }

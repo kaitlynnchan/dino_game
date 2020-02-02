@@ -26,9 +26,3 @@ class Ground extends Terrain{
     gx-= s;
   }
 }
-
-//void drawTerrain(){
-//  int gx = 0;
-//  image(ground, gx, 2*height/3);
-//  gx++;
-//}
