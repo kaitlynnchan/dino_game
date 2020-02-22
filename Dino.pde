@@ -6,7 +6,7 @@ class Dino{
   float dy, x, y, w, h;
   
   Dino(){
-    dino = loadImage("sprites/dino2.png");
+    dino = loadImage("sprites/dino.png");
     
     // dinoRun
     dinoRun = new PImage[3];
@@ -68,12 +68,13 @@ class Dino{
   }
   
   
-  void contact(float terrainX, float terrainY, float terrainW, float terrainH){
+  boolean contact(float terrainX, float terrainY, float terrainW, float terrainH){
     // rect rect collision checking
     //if(rectRect(this.x, this.y, this.w, this.h, terrainX, terrainY, terrainW, terrainH)) print("check");
     
     // circle circle collision checking
-    if(dist(this.x + this.w/2, this.y + this.h/2, terrainX + terrainW/2, terrainY + terrainH/2) < this.w/2 + terrainW/2) print("check");
+    if(dist(this.x + this.w/2, this.y + this.h/2, terrainX + terrainW/2, terrainY + terrainH/2) < this.w/2 + terrainW/2) return true;
+    return false;
   }
   
 }

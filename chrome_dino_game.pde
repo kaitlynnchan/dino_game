@@ -1,13 +1,17 @@
 /*  
  * Kaitlynn Chan, 2020-02-01
  * felt very bored and decided to make this game instead of studying
-*/
+ */
 
 // modes
+final int INTRO = 0;
 final int PLAY = 1;
-int mode = PLAY;
+final int DEAD = 2;
+int mode = INTRO;
 
 boolean downkey = false, upkey = false;
+
+PFont font;
 
 // objects
 Ground g;
@@ -15,6 +19,7 @@ Dino d;
 ArrayList<Bird> birds;
 ArrayList<Cloud> clouds;
 ArrayList<Cactus> cacti;
+PImage back;
 
 void setup() {
   size(1000, 400);
@@ -27,72 +32,46 @@ void setup() {
   birds = new ArrayList<Bird>();
   clouds = new ArrayList<Cloud>();
   cacti = new ArrayList<Cactus>();
+  back = loadImage("sprites/back.png");
+  
+  // font
+  font = createFont("fonts/PressStart2P-Regular.ttf", 20);
+  textFont(font);
 }
 
 void draw() {
   background(255);
 
   // modes
-  if (mode == PLAY) {
-    int speed = 5;
-
-    // cloud
-    for (int i = 0; i < clouds.size(); i++) {
-      Cloud c = clouds.get(i);
-      c.move();
-      //if(b.dead()) birds.remove(i);
-    }
-    if(frameCount %300 == 0) clouds.add(new Cloud());
-    
-    // ground
-    g.show();
-    g.move(speed);
-
-    // moving dino
-    if (upkey) d.jump();
-    if (downkey) {
-      d.duck(speed);
-    } else {
-      d.run(speed);
-      //d.show();
-    }
-    
-    // adding in new birds with the specified speed
-    for (int i = 0; i < birds.size(); i++) {
-      Bird b = birds.get(i);
-      b.move(speed);
-      
-      // collision checking
-      d.contact(b.getX(), b.getY(), b.getWidth(), b.getHeight());
-      
-      // removing birds when they are removed from the screen
-      //if(b.dead()) birds.remove(i);
-    }
-    if(frameCount %250 == 0) birds.add(new Bird());
-    
-    // adding in new cacti with the specified speed
-    for (int i = 0; i < cacti.size(); i++) {
-      Cactus c = cacti.get(i);
-      c.move(speed);
-      
-      // collision checking
-      d.contact(c.getX(), c.getY(), c.getWidth(), c.getHeight());
-      
-      // removing cacti when they are removed from the screen
-      //if(b.dead()) birds.remove(i);
-    }
-    if(frameCount %200 == 0) cacti.add(new Cactus());
-    
-    
+  if (mode == INTRO) {
+    modeIntro();
+  } else if (mode == PLAY) {
+    modePlay();
+  } else if (mode == DEAD) {
+    modeDead();
   }
 }
 
 void keyPressed() {
-  if (key == ' ' || keyCode == UP) upkey = true; 
-  if (keyCode == DOWN) downkey = true;
+  if (mode == PLAY) {
+    if (key == ' ' || keyCode == UP) upkey = true; 
+    if (keyCode == DOWN) downkey = true;
+  }
 }
 
 void keyReleased() {
-  //if(key == ' ' || keyCode == UP) upkey = false; 
-  if (keyCode == DOWN) downkey = false;
+  if(mode == INTRO){
+    if(key == ' ' || keyCode == UP) upkey = true;
+  }
+  if (mode == PLAY) {
+    //if(key == ' ' || keyCode == UP) upkey = false; 
+    if (keyCode == DOWN) downkey = false;
+  }
+}
+
+
+void mouseReleased() {
+  if (mode == DEAD) {
+    if (mouseX >= width/2 - back.width/2 && mouseX <= width/2 + back.width/2 && mouseY >= height/2 - back.height/2 && mouseY <= height/2 + back.height/2)  mode = INTRO;
+  }
 }

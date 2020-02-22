@@ -60,6 +60,10 @@ class Bird extends Terrain{
     h = bird[0].height;
   }
   
+  void show(){
+    image(bird[indx], x, y);
+  }
+  
   void move(int s){
     image(bird[indx], x, y);
     if(frameCount %s == 0) indx++;
@@ -82,6 +86,10 @@ class Cloud extends Terrain{
    x = width;
    y = random(50, 200);
    dx = random(1, 2);
+  }
+  
+  void show(){
+    image(cloud, x, y);
   }
   
   void move(){
@@ -107,6 +115,10 @@ class Cactus extends Terrain{
     indx = (int)random(10);
     w = cactus[indx].width;
     h = cactus[indx].height;
+  }
+  
+  void show(){
+    image(cactus[indx], x, y);
   }
   
   void move(int s){
