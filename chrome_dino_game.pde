@@ -1,13 +1,15 @@
 /*  
-  Kaitlynn Chan, 2020-02-01
-  felt very bored and decided to make this game instead of studying
+ * Kaitlynn Chan, 2020-02-01
+ * felt very bored and decided to make this game instead of studying
 */
 
+// modes
 final int PLAY = 1;
 int mode = PLAY;
 
 boolean downkey = false, upkey = false;
 
+// objects
 Ground g;
 Dino d;
 ArrayList<Bird> birds;
@@ -16,7 +18,6 @@ ArrayList<Cactus> cacti;
 
 void setup() {
   size(1000, 400);
-  //fullScreen();
   background(255);
   //frameRate(15);
 
@@ -56,21 +57,32 @@ void draw() {
       //d.show();
     }
     
-    // bird
+    // adding in new birds with the specified speed
     for (int i = 0; i < birds.size(); i++) {
       Bird b = birds.get(i);
       b.move(speed);
+      
+      // collision checking
+      d.contact(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+      
+      // removing birds when they are removed from the screen
       //if(b.dead()) birds.remove(i);
     }
     if(frameCount %250 == 0) birds.add(new Bird());
     
-    // cactus
+    // adding in new cacti with the specified speed
     for (int i = 0; i < cacti.size(); i++) {
       Cactus c = cacti.get(i);
       c.move(speed);
+      
+      // collision checking
+      d.contact(c.getX(), c.getY(), c.getWidth(), c.getHeight());
+      
+      // removing cacti when they are removed from the screen
       //if(b.dead()) birds.remove(i);
     }
     if(frameCount %200 == 0) cacti.add(new Cactus());
+    
     
   }
 }

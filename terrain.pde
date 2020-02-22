@@ -1,29 +1,51 @@
-class Ground{
-  PImage ground, cactus;
-  int gx;
+class Terrain {
+  float x, y, w, h;
+  
+  float getY(){
+    return this.y;
+  }
+  
+  float getX(){
+    return this.x;
+  }
+  
+  float getWidth(){
+    return this.w;
+  }
+  
+  float getHeight(){
+    return this.h;
+  }
+  
+}
+
+class Ground extends Terrain{
+  PImage ground;
   
   Ground(){
     ground = loadImage("sprites/ground.png");
-    gx = 0;
+    x = 0;
+    w = ground.width;
+    h = ground.height;
   }
   
   void show(){
-    image(ground, gx, 2*height/3);
-    image(ground, gx+2404, 2*height/3);
-    
+    image(ground, x, 2*height/3);
+    image(ground, x+2404, 2*height/3); 
   }
   
   void move(int s){
     //moves the ground
-    gx-= s;
-    if(gx <= -2404) gx += 2404;
+    x-= s;
+    if(x <= -2404) x += 2404;
   }
+  
+  
 }
 
-class Bird{
+class Bird extends Terrain{
   PImage[] bird;
   int indx;
-  float x,y;
   
   Bird(){
     bird = new PImage[2];
@@ -31,8 +53,11 @@ class Bird{
       bird[i] = loadImage("sprites/bird" + (i+1) + ".png");
     }
     
+    // setting variables
     x = width;
     y = random(100, 150);
+    w = bird[0].width;
+    h = bird[0].height;
   }
   
   void move(int s){
@@ -48,9 +73,9 @@ class Bird{
   
 }
 
-class Cloud{
+class Cloud extends Terrain{
   PImage cloud;
-  float x, y, dx;
+  float dx;
   
   Cloud(){
    cloud = loadImage("sprites/cloud.png"); 
@@ -65,9 +90,9 @@ class Cloud{
   }
 }
 
-class Cactus{
+class Cactus extends Terrain{
   PImage[] cactus;
-  int x, indx;
+  int indx;
   
   Cactus(){
     // instantiating array of cactus picture
@@ -78,11 +103,14 @@ class Cactus{
     
     // variables
     x = width;
+    y = height/2;
     indx = (int)random(10);
+    w = cactus[indx].width;
+    h = cactus[indx].height;
   }
   
   void move(int s){
-    image(cactus[indx], x, height/2);
+    image(cactus[indx], x, y);
     x -= s;
   }
   
