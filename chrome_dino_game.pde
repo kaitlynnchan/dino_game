@@ -1,7 +1,7 @@
 /*  
  * Kaitlynn Chan, 2020-02-01
- * felt very bored and decided to make this game instead of studying
- */
+ * my own version of the dino game on chrome
+*/
 
 // modes
 final int INTRO = 0;

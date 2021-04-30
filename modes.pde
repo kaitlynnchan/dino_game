@@ -8,6 +8,7 @@ void modeIntro() {
   for (int i = 0; i < cacti.size(); i++) {
     cacti.remove(i);
   }
+  //d.remove();
   background(255); 
   d.show();
 
@@ -53,7 +54,7 @@ void modePlay() {
     b.move(speed);
 
     // collision checking
-    d.contact(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+    if(d.contact(b.getX(), b.getY(), b.getWidth(), b.getHeight())) mode = DEAD;
 
     // removing birds when they are removed from the screen
     //if(b.dead()) birds.remove(i);
@@ -80,7 +81,7 @@ void modePlay() {
 void modeDead() {
 
   g.show();
-  d.show();
+  d.showDead();
   for (int i = 0; i < clouds.size(); i++) {
     Cloud c = clouds.get(i);
     c.show();

@@ -24,7 +24,7 @@ class Ground extends Terrain{
   
   Ground(){
     ground = loadImage("sprites/ground.png");
-    x = 0;
+    x = 100;
     w = ground.width;
     h = ground.height;
   }

@@ -2,11 +2,21 @@ class Dino{
  
   PImage dino;
   PImage[] dinoRun, dinoDuck, dinoJump; // different dino modes
-  int ri, di; // indices for the different dino modes
+  //PImage[] dinoMove;
+  //int di;
+  int ri, di, dinoMode; // indices for the different dino modes
   float dy, x, y, w, h;
   
   Dino(){
     dino = loadImage("sprites/dino.png");
+    
+    //// dinoMove
+    //dinoMove = new PImage[5];
+    //for(int i = 0; i < 5; i++){
+    //  if(i < 3) dinoMove[i] = loadImage("sprites/dino" + (i+2) + ".png");
+    //  if(i >= 3) dinoMove[i] = loadImage("sprites/dino" + (i+4) + ".png");
+    //}
+    //di = 0;
     
     // dinoRun
     dinoRun = new PImage[3];
@@ -35,7 +45,14 @@ class Dino{
     image(dino, x, y);
   }
   
+  void showDead(){
+    if(dinoMode == 1) image(dinoRun[ri], x, y);
+    if(dinoMode == 2) image(dinoDuck[di], x, y);
+    //image(dinoMove[di], x, y);
+  }
+  
   void run(int s){
+    dinoMode = 1;
     image(dinoRun[ri], x, y);
     if(frameCount %s == 0) ri++;
     if(ri >= 3) ri = 0;
@@ -46,6 +63,9 @@ class Dino{
   }
   
   void duck(int s){
+    //image(dinoDuck[di], x, y+35);
+    //di = 3;
+    dinoMode = 2;
     image(dinoDuck[di], x, y+35);
     if(frameCount %s == 0) di++;
     if(di >= 2) di = 0;
